@@ -1,0 +1,456 @@
+<!Doctype html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Anton|Give+You+Glory|Pacifico|Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular-animate.min.js"></script>
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		/*HEADER STYLES*/
+		.header-row{
+			background-color: #3E4E50;
+			display: block;
+			width: 100%;
+			margin-bottom: 20px;
+			height: 50px;
+			position: absolute;
+		}
+		.brand{
+			padding: 10px;
+			color: #FACFAD;
+			font-family: 'Pacifico', cursive;
+			width: 30%;
+			float: left;
+			font-size: 1em;
+		}
+		.search-bar{
+			width:30%;
+			float: left;
+			padding: 6px 10px 0px 10px;
+		}
+		.search-bar input[type="text"]{
+			font-family: 'Give You Glory', cursive;
+			display: block;
+		    width: 100%;
+		    height: 28px;
+		    padding: 4px 12px;
+		    font-size: 1em;
+		    color: #555;
+		    background-color: #fff;
+		    background-image: none;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+		    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		}
+		/*MAIN SECTION STYLES*/
+		.main-section{
+			width: 80%;
+			margin:40px 10%;
+			position: absolute;
+		}
+		.head-section{
+			border-bottom: 1px solid #e6e6e6;
+			margin: 10px;
+		}
+		.section-title{
+			display: inline-block;
+			font-family: 'Raleway', sans-serif;
+			color: #3E4E50;
+		}
+
+		.view-all{
+			display: inline-block;
+			font-family: 'Raleway', sans-serif;
+			color: #bfbfbf;
+			font-size: 12px;
+			float: right;
+			margin-top: 30px;
+			cursor: pointer;
+		}
+
+		.view-all-img{
+			margin-top: 10px;
+			height:15px;
+			width: 15px;
+			opacity: 0.5;
+		}
+		.card{
+			height: 270px;
+			width: 150px;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    box-shadow:1px 3px 5px rgba(0,0,0,.075);
+		    display: table-cell;
+		    float: left;
+		    margin:10px;
+		}
+
+		.summary{
+			font-family: 'Raleway', sans-serif;
+			margin-top: -20px;
+			padding: 10px;
+			font-size: 10px;
+		}
+
+		.summary h4{
+			color:#4A6670;
+			font-size: 13px;
+			height: 25px;
+		}
+		.summary p{
+			display: inline-block;
+			float: left;
+			font-weight: 700;
+		}
+
+		.the-image{
+			height: 150px;
+			width: 100%;
+			cursor: pointer;
+		}
+
+		/*DETAILS STYLES*/
+		.overlay-section{
+			width: 100%;
+			height: 100vh;
+			background-color: rgba(0, 0, 0, 0.9);
+			position: relative;
+			z-index: 10;
+			 -webkit-transition:all linear 0.5s;
+  			transition:all linear 0.5s;
+		}
+
+		.overlay-section.ng-hide {
+			 opacity:0;
+		}
+		.close-button{
+			background: none;
+			height:24px;
+			width: 24px;
+			margin: 20px 20px 0px 95%;
+			outline: none;
+			border:none;
+			color: #fff;
+			font-size: 24px;
+			cursor: pointer;
+		}
+		.movie-details{
+			margin:5% 15%;
+			width: 70%;
+		}
+		.movie-image{
+			display: inline-block;
+			float: left;
+			width: 50%;
+		}
+
+		.movie-image div{
+			color: #FACFAD;
+			font-family: 'Pacifico', cursive;
+			font-size: 28px;
+
+		}
+
+		.movie-image p{
+			font-family: 'Raleway', sans-serif;
+			color:#fff;
+			font-size: 14px;
+			font-weight: 600;
+		}
+
+		.data-details{
+			font-family: 'Give You Glory', cursive;
+			color:#e6e6e6;
+			font-size: 14px;
+			font-weight: 700;
+		}
+		.imdb{
+			height:30px;
+			width: 50px;
+		}
+		.genre-tag {
+		  height: 20px;
+		  font-size: 10px;
+		  padding: 8px 10px 0px 10px;
+		  border-radius:10px;
+		  border: 1px solid #FACFAD;
+		  color:#fff;
+		  margin-left:5px;
+		  font-family: 'Raleway', sans-serif;
+		  display: inline-block;
+		}
+
+		/*PROGRESS BAR STYLES*/
+		progress{
+		    margin: 23px 0 0 -10px;
+		    height: 3px;
+    		width: 15em;
+    		display: block;
+			-webkit-appearance: none;
+			border: none;
+		}
+
+		progress::-webkit-progress-bar {
+			background-color: #3E4E50;
+		}
+
+		progress::-webkit-progress-value {
+			background-color:#FACFAD;
+		}
+
+		/*DROPDOWN STYLES*/
+		.dropdown {
+		    position: relative;
+		    display: inline-block;
+		    font-family: 'Raleway', sans-serif;
+		    color:#3E4E50;
+		}
+
+		.dropdown-content {
+			padding: 10px;
+			    display: none;
+			    position: absolute;
+			    background-color: #fff;
+			    width: 200px;
+			    box-shadow: 1px 1px 1px #bfbfbf;
+			    z-index: 1;
+			    height:350px;
+			    overflow-y: scroll;
+		}
+
+		.dropdown-content ul {
+		    list-style: none;
+		    -webkit-padding-start: 0;
+		}
+
+		.dropdown-content ul li{
+		    border-bottom: 1px solid #e6e6e6;
+		    padding: 5px;
+		}
+
+		.dropdown-content ul li button{
+		    width: 100%;
+		    background-color: #3E4E50;
+		    color:#fff;
+		    display: inline-block;
+		    padding: 6px 12px;
+		    margin-bottom: 0;
+		    font-size: 14px;
+		    font-weight: 400;
+		    line-height: 1.42857143;
+		    text-align: center;
+		    white-space: nowrap;
+		    vertical-align: middle;
+		    -ms-touch-action: manipulation;
+		    touch-action: manipulation;
+		    cursor: pointer;
+		    -webkit-user-select: none;
+		    -moz-user-select: none;
+		    -ms-user-select: none;
+		    user-select: none;
+		    background-image: none;
+		    border: 1px solid transparent;
+		    border-radius: 4px;
+		}
+
+		.dropdown:hover .dropdown-content {display: block;}
+    
+		/*MEDIA QUERY FOR TAB STYLES*/
+		@media only screen and (max-width: 1024px) {
+			.movie-details{
+				margin:5% 5%;
+				width: 90%;
+				height: auto;
+			}
+
+			.movie-image{
+				width: 90%;
+				margin: 5%;
+				float: none;
+				display: block;
+				text-align: center;
+			}
+		
+		}
+		/*MEDIA QUERY FOR MOBILE STYLES*/
+		@media only screen and (max-width: 500px) {
+		    .brand{
+				font-size: 0.8em;
+			}
+			.search-bar input[type="text"]{
+			    font-size: 0.8em;
+			}
+			.section-title{
+				display: inline-block;
+				font-family: 'Raleway', sans-serif;
+				color: #3E4E50;
+			}
+
+			.card{
+				width: 80%;
+			}
+			.close-button{
+				margin: 20px 20px 0px 90%;
+			}
+
+			.overlay-section{
+				height: auto;
+			}
+			.movie-details{
+				margin:5% 5%;
+				width: 90%;
+				height: auto;
+			}
+			.movie-image{
+				width: 100%;
+				float: none;
+				display: block;
+			}
+
+			.movie-image img{
+				width: 100%;
+			}
+			progress{
+				width: 24em;
+			}
+		}
+
+	</style>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<header>
+		<section class="header-row">
+			<div class="brand">Get Your Move-ey!</div>
+			<div class="search-bar">
+				<input type="text" name="searchbar" placeholder="Search your movie.." ng-model="searchOn">
+			</div>
+		</section>
+	</header>
+	<main>
+		<section class="main-section" ng-show="!showMovieDetails">
+			<div class="newest" ng-show="searchOn==null || searchOn.length==0">
+				<div class="head-section">
+					<h3 class="section-title">Newest Movies</h3>
+					<p class="view-all" ng-click="gotoElement('allMovies')"><a>View All</a></p>
+				</div>
+				<div style="display: table;padding-left: 30px">
+					<div class="card" ng-repeat="movie in listOfMovies | orderBy:'title_year':'desc' | limitTo:6">
+						<div class="image" ng-click="openMovieDetails(movie)">
+							<img ng-src="https://picsum.photos/200/200/?image={{$index+($index+$index)+10}}" class="the-image">
+						</div>
+						<div class="summary">
+							<h4>{{movie.movie_title}}</h4>
+							<p style="float: left">{{movie.director_name}}</p>
+							<p style="float: right">{{movie.title_year}}</p>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<div class="hollywood" ng-show="searchOn==null || searchOn.length==0">
+				<div class="head-section">
+					<h3 class="section-title">All Hollywood</h3>
+					<p class="view-all" ng-click="gotoElement('allMovies')"><a>View All</a></p>
+				</div>
+				<div style="display: table;padding-left: 30px">
+					<div class="card" ng-repeat="movie in listOfMovies | filter:{country:'USA'} | limitTo:6">
+						<div class="image" ng-click="openMovieDetails(movie)"><img ng-src="https://picsum.photos/200/200/?image={{$index+($index+$index)+20}}" class="the-image">
+						</div>
+						<div class="summary">
+							<h4>{{movie.movie_title}}</h4>
+							<p style="float: left">{{movie.director_name}}</p>
+							<p style="float: right">{{movie.title_year}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="allmovies" id="allMovies">
+				<div class="head-section">
+					<h3 class="section-title">All Movies</h3>
+					<p class="view-all">
+						<div class="dropdown">
+						  <a class="dropbutton"><img class="view-all-img" src="https://png.icons8.com/ios/50/000000/filter-filled.png"></a>
+						  <div class="dropdown-content">
+						    <ul>
+						    	<li>
+						    		Language
+						    	</li>
+						    	<li ng-repeat="lang in languages">
+						    		<input type="checkbox" ng-model="languageFilter[$index]" ng-change="updateLanguage(lang,languageFilter[$index])">{{lang}}
+						    	</li>
+						    	<li>
+						    		Country
+						    	</li>
+						    	<li ng-repeat="coun in countries">
+						    		<input type="checkbox" ng-model="countryFilter[$index]" ng-change="updateCountry(coun,countryFilter[$index])">{{coun}}
+						    	</li>
+						    	<li>
+						    		<button type="button" ng-click="filterValues()">Filter</button>
+						    	</li>
+						    	<li>
+						    		<button type="reset" ng-click="clearFilter()">Clear Filters</button>
+						    	</li>
+						    </ul>
+						  </div>
+						</div>
+						
+						<a ng-click="orderByProperty('title_year')"><img class="view-all-img" src="https://png.icons8.com/windows/50/000000/sort.png"> Year</a>
+						<a ng-click="orderByProperty('budget')"><img class="view-all-img" src="https://png.icons8.com/windows/50/000000/sort.png"> Budget</a>
+						<a ng-click="orderByProperty('movie_title')"><img class="view-all-img" src="https://png.icons8.com/windows/50/000000/sort.png"> Title</a>
+						<a ng-click="orderByProperty('rating')"><img class="view-all-img" src="https://png.icons8.com/windows/50/000000/sort.png"> Popularity</a>
+					</p>
+				</div>
+				<div style="display: table;padding-left: 30px">
+					<div class="card" ng-repeat="movie in filteredlistOfMovies|filter:{movie_title:searchOn}|orderBy:orderProperty:'desc'">
+						<div class="image" ng-click="openMovieDetails(movie)"><img ng-src="https://picsum.photos/200/200/?image={{$index}}" class="the-image">
+						</div>
+						<div class="summary">
+							<h4>{{movie.movie_title}}</h4>
+							<p style="float: left">{{movie.director_name}}</p>
+							<p style="float: right">{{movie.title_year}}</p>
+							<p>
+								<progress value="{{movie.rating}}" max="5"></progress>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>			
+		</section>
+
+		<section class="overlay-section" ng-show="showMovieDetails">
+			<div><button class="close-button" ng-click="closeMovieDetails()">X</button></div>
+			<div class="movie-details">
+				<div class="movie-image">
+					<img src="https://picsum.photos/400/400/?random">
+				</div>
+				<div class="movie-image">
+					<div>{{details.movie_title}}</div>
+					<p><label>Plot</label> : <label class="data-details" ng-repeat="plot in getListItems(details.plot_keywords)">{{plot}}, </label></p>
+					<p><label>Director</label> : <label class="data-details">{{details.director_name}}</label></p>
+					<p><label>Cast</label> : <label class="data-details">{{details.actor_1_name}}, {{details.actor_2_name}}</label></p>
+					<p><label>Year</label> : <label class="data-details">{{details.title_year}}</label></p>
+					<p><label>Budget</label> : <label class="data-details">{{details.budget | currency}}</label></p>
+					<p><label>Language</label> : <label class="data-details">{{details.language}}</label></p>
+					<p><label>Content Rating</label> : <label class="data-details">{{details.content_rating}}</label></p>
+					<p><label>Country</label> : <label class="data-details">{{details.country}}</label></p>
+					<p><label>Genres</label> : <span class="genre-tag" ng-repeat="plot in getListItems(details.genres)">{{plot}}</span></p>
+					<p><a href="{{details.movie_imdb_link}}" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/IMDb_logo.svg" class="imdb"></a></p>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer>
+		<a href="https://fixingux.16mb.com">Some of my Work</a>
+		<a href="https://icons8.com">Icon pack by Icons8</a>
+	</footer>
+	
+</body>
+<script type="text/javascript" src="app.js"></script>
+</html>
